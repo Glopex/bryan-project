@@ -38,7 +38,7 @@ for (int i = 0; i < buffer.size(); i ++) // buffer.size will be 1024
 float c = map(i, 0, buffer.size(), 0, height/2);
 stroke(c, 255, 255);
 float sample = buffer.get(i) * (100);
-line(i, lerp(height / 2 - sample,height / 2 + sample,1), i, lerp(height / 2 + sample,height / 2 - sample,1));
+line(i, lerp(height / 2 - sample,height / 2 + sample,0.1), 0,i, lerp(height / 2 + sample,height / 2 - sample,1),100);
 pushMatrix();
 translate(130, height/2, 0);
 rotateY(1.25);
