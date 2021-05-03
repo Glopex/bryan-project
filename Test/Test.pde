@@ -7,6 +7,10 @@ import ddf.minim.ugens.*;
 
 Minim minim; // Minim Library
 AudioPlayer player; // Playing audio
+AudioPlayer player2;
+AudioPlayer player3;
+AudioPlayer player4;
+
 AudioBuffer buffer; // Gives access to the samples
 //AudioInput input;
 
@@ -16,8 +20,16 @@ size(1024, 512, P3D);
 lights();
 
 minim = new Minim(this);
-player = minim.loadFile("Song.mp3", width);
+player = minim.loadFile("VOCALS.mp3", width);
+player2 = minim.loadFile("GUITAR.mp3", width);
+player3 = minim.loadFile("DRUMS.mp3", width);
+player4 = minim.loadFile("BASS.mp3", width);
+
 player.play();
+player2.play();
+player3.play();
+player4.play();
+
 //input=minim.getLineIn(Minim.MONO,width,44100,16);
 buffer = player.mix;
 //buffer = input.mix;
@@ -52,4 +64,5 @@ popMatrix();
 // abs() - To get the absolute value
 sum+= abs(buffer.get(i));
 }
+
 }
