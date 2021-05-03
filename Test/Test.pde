@@ -91,7 +91,16 @@ void mousePressed()
 void character1(){
   pushMatrix();
   translate(100,100,345);
-  stroke(255,100,255);
-  line(355,200,357,180);
+  stroke(169,182,239);
+  noFill();
+  strokeWeight(3);
+  line(360,200,355,186);//right leg
+  line(350,199,355,187);//left leg
+  line(355,187,355,171);//body
+  line(359,182,355,174);//right arm
+  line(349,176,351,182);
+  line(351,182,355,174);//left arm
+  line(356,186,359,182);//left arm lower
+  ellipse(355,167,8,8);
 popMatrix();
 }
