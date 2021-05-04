@@ -11,7 +11,15 @@ AudioPlayer player2;
 AudioPlayer player3;
 AudioPlayer player4;
 boolean playing = false;
-AudioBuffer buffer; // Gives access to the samples
+AudioBuffer buffer;
+AudioBuffer buffer2;
+AudioBuffer buffer3;
+AudioBuffer buffer4;
+boolean Vplaying = true;
+boolean Bplaying = true;
+boolean Gplaying = true;
+boolean Dplaying = true;
+// Gives access to the samples
 //AudioInput input;
 
 void setup()
@@ -21,15 +29,18 @@ void setup()
 
   minim = new Minim(this);
   player = minim.loadFile("VOCALS.mp3", width);
-  player2 = minim.loadFile("GUITAR.mp3", width);
-  player3 = minim.loadFile("DRUMS.mp3", width);
-  player4 = minim.loadFile("BASS.mp3", width);
+  player2 = minim.loadFile("BASS.mp3", width);
+  player3 = minim.loadFile("GUITAR.mp3", width);
+  player4 = minim.loadFile("DRUMS.mp3", width);
 
 
   //input=minim.getLineIn(Minim.MONO,width,44100,16);
   buffer = player.mix;
+  buffer2 = player2.mix;
+  buffer3 = player3.mix;
+  buffer4 = player4.mix;
   //buffer = input.mix;
-  colorMode(HSB);
+  colorMode(RGB);
 }
 float y;
 float singerhandY;
@@ -55,10 +66,10 @@ void draw()
 
   for (int i = 0; i < buffer.size(); i ++) // buffer.size will be 1024
   {
-    float c = map(i, 0, buffer.size(), 0, height/2);
-    stroke(c, 255, 255);
-    float sample = buffer.get(i) * (100);
-    line(i, lerp(height / 2 - sample, height / 2 + sample, 0.1), 0, i, lerp(height / 2 + sample, height / 2 - sample, 1), 100);
+    vocalLines(i);
+    bassLines(i);
+    guitarsLines(i);
+    drumsLines(i);
     pushMatrix();
     translate(396, height/2, 185);
     rotateY(1.50);
@@ -66,7 +77,6 @@ void draw()
     fill(65, 402, 267);
     noStroke();
     box(304, 274, 0);
-    //box(lerp(height / 2 - sample,(height /2) + sample,0.1));
     popMatrix();
 
     pushMatrix();
@@ -83,11 +93,12 @@ void draw()
     // abs() - To get the absolute value
     sum+= abs(buffer.get(i));
     character1();
+    
   }
 }
 void mousePressed()
 {
-  if (mouseX > 300 && mouseX < 350 && mouseY >300 && mouseY > 250)
+  if (mouseX > 0 && mouseX < width && mouseY >0 && mouseY < height)
     playing = true;
 }
 
@@ -106,7 +117,7 @@ void character1() {
   line(356, 186, 359, 182);//left arm lower
   ellipse(355, 167, 8, 8);
   popMatrix();
-  
+
 
   singerhandY = singerhandY + singerhandspeed;
 
@@ -118,4 +129,104 @@ void character1() {
   {
     singerhandspeed = 3;
   }
+}
+////////////////////////////////// sound lines /////////////////////////////////
+void vocalLines(int vocal)
+{
+  float c = map(vocal, 0, buffer.size(), 0, height/2);
+  stroke(197, 136, 20);
+ float sample = buffer.get(vocal) * (150);
+ if(Vplaying == true)
+  line(vocal, lerp(height/2 - sample, height/2 + sample, 0.1), 0, vocal, lerp(height/2 + sample, height/2 - sample, 1), 100);
+}
+void bassLines(int bass)
+{
+  float c = map(bass, 0, buffer2.size(), 0, height/2);
+  stroke(152, 17, 51);
+  float sample2 = buffer2.get(bass) * (100);
+   if(Bplaying == true)
+  line(bass, lerp(height - 40 - sample2, height - 40 + sample2, 0.1), 0, bass, lerp(height - 40 + sample2, height - 40 - sample2, 1), 100);
+}
+void guitarsLines(int guitar)
+{
+  float c = map(guitar, 0, buffer3.size(), 0, height/2);
+  stroke(23, 137, 105);
+  float sample3 = buffer3.get(guitar) * (100);
+   if(Gplaying == true)
+  line(guitar, lerp(height/4 - sample3, height/4 + sample3, 0.1), 0, guitar, lerp(height/4 + sample3, height/4 - sample3, 1), 100);
+}
+void drumsLines(int drums)
+{
+  float c = map(drums, 0, buffer4.size(), 0, height/2);
+  stroke(123, 68, 126);
+  float sample4 = buffer4.get(drums) * (100);
+   if(Dplaying == true)
+  line(drums, lerp(height/6 - sample4, height/6 + sample4, 0.1), 0, drums, lerp(height/6 + sample4, height/6 - sample4, 1), 100);
+}
+void pauseInstrument()
+{
+ if(key == 'v')
+ {
+  if(Vplaying == true)
+   {
+     Vplaying = false;
+     player.mute();
+     key = 'P';
+   }
+   else
+   {
+    Vplaying = true;
+    player.unmute();
+    key = 'P';
+   }
+ }else
+  if(key == 'b')
+ {
+  if(Bplaying == true)
+   {
+     Bplaying = false;
+     player2.mute();
+     key = 'P';
+   }
+   else
+   {
+    Bplaying = true;
+    player2.unmute();
+    key = 'P';
+   }
+ }else
+  if(key == 'g')
+ {
+  if(Gplaying == true)
+   {
+     Gplaying = false;
+     player3.mute();
+     key = 'P';
+   }
+   else
+   {
+    Gplaying = true;
+    player3.unmute();
+    key = 'P';
+   }
+ }else
+  if(key == 'd')
+ {
+  if(Dplaying == true)
+   {
+     Dplaying = false;
+     player4.mute();
+     key = 'P';
+   }
+   else
+   {
+    Dplaying = true;
+    player4.unmute();
+    key = 'P';
+   }
+ }
+}
+void keyPressed()
+{
+pauseInstrument();
 }
