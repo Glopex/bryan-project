@@ -43,9 +43,6 @@ void setup()
   colorMode(RGB);
 }
 float y;
-float singerhandY;
-float singerhandX;
-float singerhandspeed = -3;
 
 
 void draw()
@@ -108,27 +105,17 @@ void character1() {
   stroke(169, 182, 239);
   noFill();
   strokeWeight(3);
+  ellipse(355, 167, 8, 8);
   line(360, 200, 355, 186);//right leg
   line(350, 199, 355, 187);//left leg
-  line(355, 187, 355, 171);//body
-  line(359, 182, 355, 174);//right arm
-  line(343, singerhandY, 351, 181);
-  line(351, 182, 355, 174);//left arm
-  line(356, 186, 359, 182);//left arm lower
-  ellipse(355, 167, 8, 8);
+  line(362, 183, 356, 174);//right arm
+  line(345, 173, 351, 181);
+  line(351, 182, 354, 174);//left arm
+  line(355, 184, 362, 183);//left arm lower
+  fill(169, 182, 239);
+  rect(354, 189, 3, -16);//body
   popMatrix();
 
-
-  singerhandY = singerhandY + singerhandspeed;
-
-  if (singerhandY > 189) 
-  {
-    singerhandspeed = -3;
-  }
-  if (singerhandY < 167)
-  {
-    singerhandspeed = 3;
-  }
 }
 ////////////////////////////////// sound lines /////////////////////////////////
 void vocalLines(int vocal)
