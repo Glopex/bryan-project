@@ -128,8 +128,17 @@ void mousePressed()
   if (mouseX > 0 && mouseX < width && mouseY >0 && mouseY < height)
     playing = true;
 }
-
+float smoothavg = 0;
 void character1() {
+
+  float sum = 0;
+  for (int i = 0; i < buffer.size(); i ++)
+  {
+    float c = map(i, 0, buffer.size(), 0, 255); 
+    stroke(c, 255, 255);
+    float sample = buffer.get(i) * (height / 2);  // buffer[i]
+    sum += abs(buffer.get(i));
+  }
   pushMatrix();
   translate(100, 100, 345);
   stroke(169, 182, 239);
@@ -144,9 +153,16 @@ void character1() {
   line(355, 184, 362, 183);//left arm lower
   fill(169, 182, 239);
   rect(354, 189, 3, -16);//body
-  popMatrix();
 
+
+  float average = sum / buffer.size();
+  smoothavg = lerp(smoothavg, average, 0.1); 
+  if (Vplaying == true)
+    ellipse ( 355, 169, average *30, average * 30);  
+
+  popMatrix();
 }
+
 
 void drawPoint(float x, float y, float noiseFactor) {    
   pushMatrix();
