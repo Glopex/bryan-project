@@ -19,6 +19,7 @@ boolean Vplaying = true;
 boolean Bplaying = true;
 boolean Gplaying = true;
 boolean Dplaying = true;
+boolean menuActive = true;
 PImage img;
 float xstart, xnoise, ystart, ynoise;  
 float y1 = random(0, 400);
@@ -55,6 +56,11 @@ float y;
 
 void draw()
 {
+  if(menuActive == true)
+  {
+  menu();
+  }
+  else{
   if (playing == true)
   {
     player.play();
@@ -123,10 +129,16 @@ void draw()
     
   }
 }
+}
 void mousePressed()
 {
+  if(menuActive==true){
   if (mouseX > 0 && mouseX < width && mouseY >0 && mouseY < height)
+  {
     playing = true;
+  menuActive = false;  
+}
+}
 }
 float smoothavg = 0;
 void character1() {
@@ -275,4 +287,22 @@ void pauseInstrument()
 void keyPressed()
 {
 pauseInstrument();
+}
+
+void menu()
+{
+  noStroke();
+background(0,22,33);
+fill(255,255,255);
+rect(200,100,600,300);
+fill(0,22,33);
+rect(200,250,600,10);
+rect(490,100,10,300);
+textSize(30);
+text("bass ==> B", 264,186);
+text("guitar ==> G", 250,333);
+text("voice ==> V", 564,186);
+text("drums ==> D", 556,333);
+fill(255,255,255);
+text("click on the screen to start", 300,464);
 }
