@@ -20,11 +20,7 @@ boolean Bplaying = true;
 boolean Gplaying = true;
 boolean Dplaying = true;
 boolean menuActive = true;
-PImage img;
-float xstart, xnoise, ystart, ynoise;  
-float y1 = random(0, 400);
-float x1 = 1024;
-float xspeed = 0.05;
+
 // Gives access to the samples
 //AudioInput input;
 
@@ -47,15 +43,14 @@ void setup()
   buffer4 = player4.mix;
   //buffer = input.mix;
   colorMode(RGB);
-  xstart = random(10); 
-  ystart = random(10);
-  img = loadImage("island.png");
+
 }
 float y;
 
 
 void draw()
 {
+  drawclouds();
   if (menuActive == true)
   {
     menu();
@@ -72,61 +67,40 @@ void draw()
     stroke(255);
     lights();
     float sum = 0;
+  }
 
-    xstart += 0.05;  // increments x/y noise start values
-    ystart += 0.01;
+  for (int i = 0; i < buffer.size(); i ++) // buffer.size will be 1024
+  {
+    vocalLines(i);
+    bassLines(i);
+    guitarsLines(i);
+    drumsLines(i);
+    pushMatrix();
+    translate(396, height/2, 185);
+    rotateY(1.50);
+    rotateX(0.0);
+    fill(65, 402, 267);
+    noStroke();
+    popMatrix();
 
-    xnoise = xstart; 
-    ynoise = ystart; 
+    pushMatrix();
+    translate(396, 300, 185);
+    rotateY(1.50);
+    rotateX(1.5);
+    fill(255, 255, 255);
+    stroke(255, 255, 255);
+    popMatrix();
 
-    for (int y = 0; y <= height; y+=5) { 
-      ynoise += 0.1;                                     
-      xnoise = xstart; 
-      for (int x = 0; x <= width; x+=5) { 
-        xnoise += 0.1;     
-        drawPoint(x, y, noise(xnoise, ynoise));
-      }
-      x1 = x1 - xspeed;
-      image(img, x1, y1);
-
-      if (x1 < -50) {
-        y1 = random(0, 400);
-        x1 = 1024;
-      }
-    }
-
-    for (int i = 0; i < buffer.size(); i ++) // buffer.size will be 1024
-    {
-      vocalLines(i);
-      bassLines(i);
-      guitarsLines(i);
-      drumsLines(i);
-      pushMatrix();
-      translate(396, height/2, 185);
-      rotateY(1.50);
-      rotateX(0.0);
-      fill(65, 402, 267);
-      noStroke();
-      popMatrix();
-
-      pushMatrix();
-      translate(396, 300, 185);
-      rotateY(1.50);
-      rotateX(1.5);
-      fill(255, 255, 255);
-      stroke(255, 255, 255);
-      popMatrix();
-
-      // buffer.get(i) - The actual sample. These values go between -1 and +1
-      // Get the average of all these samples!
-      // abs() - To get the absolute value
-      sum+= abs(buffer.get(i));
-      character2();
-      character1();
-      
-    }
+    // buffer.get(i) - The actual sample. These values go between -1 and +1
+    // Get the average of all these samples!
+    // abs() - To get the absolute value
+    sum+= abs(buffer.get(i));
+    character2();
+    character1();
+    
   }
 }
+
 void mousePressed()
 {
   if (menuActive==true) {
@@ -168,11 +142,11 @@ void character1() {
   strokeWeight(7);
   rect(353, 173, 7, 13); //body
 
- 
+
   line(369, 186, 359, 173);//right arm
   line(344, 173, 348, 184);
   line(354, 173, 348, 184);//left arm upper
-  
+
   stroke(35, 29, 96);
   line(357, 192, 360, 186);//right leg
   line(350, 192, 353, 186);//left leg
@@ -221,7 +195,7 @@ void character2()
   line(656, 407, 636, 444);
   line(657, 396, 655, 441);
   line(653, 403, 691, 445);
-  
+
   noStroke();
   fill(137, 4, 48);
   ellipse(513, 374, 180, 152);
@@ -232,12 +206,12 @@ void character2()
   ellipse(382, 242, 114, 27);
 
   fill(107, 5, 29);
- 
+
   rect(396, 268, 94, 48);
   rect(609, 268, 94, 48);
   rect(572, 318, 94, 48);
   rect(357, 323, 94, 48);
-  
+
   popMatrix();
 }
 
@@ -367,4 +341,39 @@ void menu()
   text("drums ==> D", 556, 333);
   fill(255, 255, 255);
   text("click on the screen to start", 300, 464);
+}
+
+
+
+void drawclouds()
+{
+  PImage img;
+float xstart, xnoise, ystart, ynoise;  
+float y1 = random(0, 400);
+float x1 = 1024;
+float xspeed = 0.05;
+  xstart = random(10); 
+  ystart = random(10);
+  img = loadImage("island.png");
+  xstart += 0.05;  // increments x/y noise start values
+  ystart += 0.01;
+
+  xnoise = xstart; 
+  ynoise = ystart; 
+
+  for (int y = 0; y <= height; y+=5) { 
+    ynoise += 0.1;                                     
+    xnoise = xstart; 
+    for (int x = 0; x <= width; x+=5) { 
+      xnoise += 0.1;     
+      drawPoint(x, y, noise(xnoise, ynoise));
+    }
+    x1 = x1 - xspeed;
+    image(img, x1, y1);
+
+    if (x1 < -50) {
+      y1 = random(0, 400);
+      x1 = 1024;
+    }
+  }
 }
