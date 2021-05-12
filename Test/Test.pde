@@ -20,6 +20,7 @@ boolean Bplaying = true;
 boolean Gplaying = true;
 boolean Dplaying = true;
 boolean menuActive = true;
+float sum = 0;
 
 // Gives access to the samples
 //AudioInput input;
@@ -50,11 +51,12 @@ float y;
 
 void draw()
 {
-  drawclouds();
+ 
   if (menuActive == true)
   {
     menu();
   } else {
+    
     if (playing == true)
     {
       player.play();
@@ -63,11 +65,11 @@ void draw()
       player4.play();
     }
     background(248, 200, 199);
-
+ drawclouds();
     stroke(255);
     lights();
-    float sum = 0;
-  }
+    
+  
 
   for (int i = 0; i < buffer.size(); i ++) // buffer.size will be 1024
   {
@@ -98,7 +100,7 @@ void draw()
     character2();
     character1();
     
-  }
+  }}
 }
 
 void mousePressed()
@@ -220,7 +222,7 @@ void drawPoint(float x, float y, float noiseFactor) {
   pushMatrix();
   translate(x, y);
   rotate(noiseFactor * radians(540));
-  float edgeSize = noiseFactor * 35;
+  float edgeSize = noiseFactor *50;
   float grey = 150 + (noiseFactor * 120);
   float alph = 150 + (noiseFactor * 120);
   noStroke();
