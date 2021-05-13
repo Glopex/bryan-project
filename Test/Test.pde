@@ -97,10 +97,11 @@ void draw()
     // Get the average of all these samples!
     // abs() - To get the absolute value
     sum+= abs(buffer.get(i));
-    character2();
-    character1();
+    
     
   }}
+  character2();
+  character1();
 }
 
 void mousePressed()
