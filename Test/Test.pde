@@ -127,7 +127,7 @@ void character1() {
     sum += abs(buffer.get(i));
   }
   pushMatrix();
-  translate(77, 100, 345);
+  translate(63, 107, 345);
 
   stroke(37, 8, 252);
   strokeWeight(16);
@@ -185,7 +185,7 @@ void character2()
   }
 
   pushMatrix();
-  translate(-135, -14, 0);
+  translate(-120, -49, 104);
 
 
   fill(40, 26, 61);
@@ -248,7 +248,7 @@ void character3()
   }
 
   pushMatrix();
-  translate(180, 64, 360);
+  translate(194, 69, 362);
 
   stroke(249, 218, 179);
   fill(249, 218, 179);
@@ -305,7 +305,7 @@ void character4()
   }
 
   pushMatrix();
-  translate(217, 52, 360);
+  translate(230, 52, 353);
 
   noStroke();
   fill(0);
