@@ -44,19 +44,18 @@ void setup()
   buffer4 = player4.mix;
   //buffer = input.mix;
   colorMode(RGB);
-
 }
 float y;
 
 
 void draw()
 {
- 
+
   if (menuActive == true)
   {
     menu();
   } else {
-    
+
     if (playing == true)
     {
       player.play();
@@ -65,41 +64,42 @@ void draw()
       player4.play();
     }
     background(248, 200, 199);
- drawclouds();
+    drawclouds();
     stroke(255);
     lights();
-    
-  
 
-  for (int i = 0; i < buffer.size(); i ++) // buffer.size will be 1024
-  {
-    vocalLines(i);
-    bassLines(i);
-    guitarsLines(i);
-    drumsLines(i);
-    pushMatrix();
-    translate(396, height/2, 185);
-    rotateY(1.50);
-    rotateX(0.0);
-    fill(65, 402, 267);
-    noStroke();
-    popMatrix();
 
-    pushMatrix();
-    translate(396, 300, 185);
-    rotateY(1.50);
-    rotateX(1.5);
-    fill(255, 255, 255);
-    stroke(255, 255, 255);
-    popMatrix();
 
-    // buffer.get(i) - The actual sample. These values go between -1 and +1
-    // Get the average of all these samples!
-    // abs() - To get the absolute value
-    sum+= abs(buffer.get(i));
-    
-    
-  }}
+    for (int i = 0; i < buffer.size(); i ++) // buffer.size will be 1024
+    {
+      vocalLines(i);
+      bassLines(i);
+      guitarsLines(i);
+      drumsLines(i);
+      pushMatrix();
+      translate(396, height/2, 185);
+      rotateY(1.50);
+      rotateX(0.0);
+      fill(65, 402, 267);
+      noStroke();
+      popMatrix();
+
+      pushMatrix();
+      translate(396, 300, 185);
+      rotateY(1.50);
+      rotateX(1.5);
+      fill(255, 255, 255);
+      stroke(255, 255, 255);
+      popMatrix();
+
+      // buffer.get(i) - The actual sample. These values go between -1 and +1
+      // Get the average of all these samples!
+      // abs() - To get the absolute value
+      sum+= abs(buffer.get(i));
+    }
+  }
+  character4();
+  character3();
   character2();
   character1();
 }
@@ -126,7 +126,7 @@ void character1() {
     sum += abs(buffer.get(i));
   }
   pushMatrix();
-  translate(100, 100, 345);
+  translate(77, 100, 345);
 
   stroke(37, 8, 252);
   strokeWeight(16);
@@ -167,16 +167,24 @@ void character1() {
   ellipse ( 355, 168, average *30, average * 30);  
   stroke(255);
   ellipse ( 352, 164, average *5, average * 15);  
-  ellipse ( 357, 164, average *4, average * 11);  
+  ellipse ( 357, 164, average *5, average * 15);  
 
   popMatrix();
 }
 
 void character2()
 {
+  float sum = 0;
+  for (int i = 0; i < buffer.size(); i ++)
+  {
+    float c = map(i, 0, buffer.size(), 0, 255); 
+    stroke(c, 255, 255);
+    float sample = buffer.get(i) * (height / 2);  // buffer[i]
+    sum += abs(buffer.get(i));
+  }
 
   pushMatrix();
-  translate(0, 1, 7);
+  translate(-135, -14, 0);
 
 
   fill(40, 26, 61);
@@ -199,9 +207,18 @@ void character2()
   line(657, 396, 655, 441);
   line(653, 403, 691, 445);
 
+  fill(255);
+
+
+  float average = sum / buffer.size();
+  ellipse (538, 159, average * 10, average * 15);
+  ellipse (495, 158, average * 10, average * 15);
+  line (500, 190, 530, 196);
+
+
   noStroke();
   fill(137, 4, 48);
-  ellipse(513, 374, 180, 152);
+  ellipse(513, 374, 140, 117);
 
 
   fill(150, 155, 4);
@@ -214,6 +231,115 @@ void character2()
   rect(609, 268, 94, 48);
   rect(572, 318, 94, 48);
   rect(357, 323, 94, 48);
+
+  popMatrix();
+}
+
+void character3()
+{
+  float sum = 0;
+  for (int i = 0; i < buffer.size(); i ++)
+  {
+    float c = map(i, 0, buffer.size(), 0, 255); 
+    stroke(c, 255, 255);
+    float sample = buffer.get(i) * (height / 2);  // buffer[i]
+    sum += abs(buffer.get(i));
+  }
+
+  pushMatrix();
+  translate(180, 64, 360);
+
+  stroke(249, 218, 179);
+  fill(249, 218, 179);
+  noStroke();
+  ellipse(357, 164, 12, 14); //head
+  rect(355, 172, 3, -1);//neck
+
+  fill(249, 17, 241);
+  stroke(254, 12, 245);
+  strokeWeight(7);
+  rect(355, 173, 3, 9); //body
+  line(364, 188, 358, 173);//right arm
+  line(351, 176, 349, 181);
+  line(355, 173, 351, 176);//left arm upper
+
+  stroke(235, 112, 21);
+  line(350, 192, 354, 186);//left leg
+  line(362, 193, 364, 202);//right leg bottom
+  line(350, 192, 348, 201);//left leg bottom
+
+
+
+  stroke(18, 136, 218);
+  fill(18, 136, 218);
+  ellipse(359, 186, 10, 9);
+  ellipse(361, 189, 12, 9); //guitar
+  strokeWeight(16);
+  line(356, 183, 347, 171);
+
+  strokeWeight(7);
+
+  fill(249, 17, 241);
+  stroke(254, 12, 245);
+  line(364, 188, 358, 173);//right arm
+  line(351, 176, 349, 181);
+  line(355, 173, 351, 176);//left arm upper
+
+  float average = sum / buffer.size();
+  ellipse ( 352, 164, average *5, average * 15);  
+  ellipse ( 357, 164, average *5, average * 15);  
+
+  popMatrix();
+}
+
+void character4()
+{
+  float sum = 0;
+  for (int i = 0; i < buffer.size(); i ++)
+  {
+    float c = map(i, 0, buffer.size(), 0, 255); 
+    stroke(c, 255, 255);
+    float sample = buffer.get(i) * (height / 2);  // buffer[i]
+    sum += abs(buffer.get(i));
+  }
+
+  pushMatrix();
+  translate(217, 52, 360);
+
+  noStroke();
+  fill(0);
+  rect(350, 157, 11, 8);//
+
+  stroke(206, 154, 92);
+  fill(207, 155, 94);
+  noStroke();
+  ellipse(356, 166, 12, 10); //head
+  rect(355, 172, 3, -1);//neck
+
+  fill(39, 249, 18);
+  stroke(20, 245, 52);
+  strokeWeight(7);
+  rect(351, 172, 10, 10); //body
+  line(368, 188, 361, 174);//right arm
+  line(346, 179, 347, 172);
+  line(346, 180, 352, 172);//left arm upper
+
+  stroke(235, 112, 21);
+  line(350, 192, 351, 187);//left leg
+  line(362, 196, 364, 202);//right leg bottom
+  line(350, 192, 348, 201);//left leg bottom
+
+  stroke(93, 46, 96);
+  fill(93, 46, 96);
+  ellipse(356, 186, 10, 9);
+  ellipse(360, 192, 11, 8); //guitar
+  strokeWeight(12);
+  line(354, 183, 347, 171);
+
+
+  float average = sum / buffer.size();
+  ellipse ( 352, 164, average *5, average * 15);  
+  ellipse ( 357, 164, average *5, average * 15);  
 
   popMatrix();
 }
@@ -351,10 +477,10 @@ void menu()
 void drawclouds()
 {
   PImage img;
-float xstart, xnoise, ystart, ynoise;  
-float y1 = random(0, 400);
-float x1 = 1024;
-float xspeed = 0.05;
+  float xstart, xnoise, ystart, ynoise;  
+  float y1 = random(0, 400);
+  float x1 = 1024;
+  float xspeed = 0.05;
   xstart = random(10); 
   ystart = random(10);
   img = loadImage("island.png");
