@@ -97,11 +97,12 @@ void draw()
       // abs() - To get the absolute value
       sum+= abs(buffer.get(i));
     }
-  }
+  
   character4();
   character3();
   character2();
   character1();
+  }
 }
 
 void mousePressed()
@@ -364,7 +365,7 @@ void vocalLines(int vocal)
   stroke(197, 136, 20);
   float sample = buffer.get(vocal) * (150);
   if (Vplaying == true)
-    line(vocal, lerp(height/2 - sample, height/2 + sample, 0.1), 0, vocal, lerp(height/2 + sample, height/2 - sample, 1), 100);
+    line(vocal, lerp(height-80 - sample, height-81 + sample, 0.1), 0, vocal, lerp(height-83 + sample, height-83 - sample, 1), 100);
 }
 void bassLines(int bass)
 {
@@ -372,7 +373,7 @@ void bassLines(int bass)
   stroke(152, 17, 51);
   float sample2 = buffer2.get(bass) * (100);
   if (Bplaying == true)
-    line(bass, lerp(height - 40 - sample2, height - 40 + sample2, 0.1), 0, bass, lerp(height - 40 + sample2, height - 40 - sample2, 1), 100);
+    line(bass, lerp(height - 292 - sample2, height - 334 + sample2, 0.1), 0, bass, lerp(height - 326 + sample2, height - 246 - sample2, 1), 100);
 }
 void guitarsLines(int guitar)
 {
@@ -380,7 +381,7 @@ void guitarsLines(int guitar)
   stroke(23, 137, 105);
   float sample3 = buffer3.get(guitar) * (100);
   if (Gplaying == true)
-    line(guitar, lerp(height/4 - sample3, height/4 + sample3, 0.1), 0, guitar, lerp(height/4 + sample3, height/4 - sample3, 1), 100);
+    line(guitar, lerp(height-258 - sample3, height-20 + sample3, 0.1), 0, guitar, lerp(height-20 + sample3, height-186 - sample3, 1), 100);
 }
 void drumsLines(int drums)
 {
@@ -388,7 +389,7 @@ void drumsLines(int drums)
   stroke(123, 68, 126);
   float sample4 = buffer4.get(drums) * (100);
   if (Dplaying == true)
-    line(drums, lerp(height/6 - sample4, height/6 + sample4, 0.1), 0, drums, lerp(height/6 + sample4, height/6 - sample4, 1), 100);
+    line(drums, lerp(height-170 - sample4, height-170 + sample4, 0.1), 0, drums, lerp(height-170 + sample4, height-170 - sample4, 1), 100);
 }
 void pauseInstrument()
 {
